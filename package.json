@@ -1,0 +1,28 @@
+{
+  "name": "global-tech-assistant",
+  "version": "1.0.0",
+  "description": "Global Tech Assistant (GTA) - Advanced Multifunction Discord Bot for Tech Communities",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "deploy": "node scripts/deploy-commands.js",
+    "test": "node tests/test.js"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "bot",
+    "moderation",
+    "tickets",
+    "leveling",
+    "automod",
+    "technology"
+  ],
+  "author": "Global Tech Assistant Team",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7",
+    "rss-parser": "^3.13.0"
+  }
+}
