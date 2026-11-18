@@ -16,12 +16,6 @@ const { loadEvents } = require('./handlers/eventHandler');
 
 const token = process.env.DISCORD_TOKEN;
 
-if (!token) {
-  logger.error('CRITICAL: DISCORD_TOKEN is not defined in environment variables or .env file!');
-  logger.info('Please copy .env.example to .env and insert your bot token.');
-  process.exit(1);
-}
-
 // Initialize SQLite database
 db.initDatabase();
 
@@ -72,8 +66,23 @@ function handleShutdown(signal) {
 process.on('SIGINT', () => handleShutdown('SIGINT'));
 process.on('SIGTERM', () => handleShutdown('SIGTERM'));
 
-// Connect to Discord
-client.login(token).catch(err => {
-  logger.error('Failed to log in to Discord Gateway:', err.message);
-  process.exit(1);
-});
+// Connect to Discord Gateway
+if (!token) {
+  logger.warn('DISCORD_TOKEN is not defined in environment variables or .env file!');
+} else {
+  client.login(token).catch(err => {
+    logger.error('Failed to log in to Discord Gateway:', err.message);
+  });
+}
+
+// HTTP handler for Vercel Serverless / Healthcheck API
+module.exports = (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({
+    status: 'online',
+    bot: 'Global Tech Assistant (GTA)',
+    version: '1.0.0',
+    uptime: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString()
+  }));
+};
