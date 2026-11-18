@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/index.js",
     "deploy": "node scripts/deploy-commands.js",
-    "test": "node tests/test.js"
+    "test": "node tests/test.js",
+    "vercel": "vercel",
+    "vercel:dev": "vercel dev"
   },
   "keywords": [
     "discord",
